@@ -15,6 +15,9 @@ import AccountLayout from './layouts/AccountLayout/AccountLayout'
 const Routes = () => {
   return (
     <Router>
+
+      <Set wrap={AccountLayout}>
+      <Route path="/" page={HomePage} name="home" />
       <Set wrap={JournalLayout}>
         <Route path="/dashboard" page={DashboardPage} name="dashboard" />
         <Route path="/quarterly" page={QuarterlyPage} name="quarterly" />
@@ -22,7 +25,6 @@ const Routes = () => {
         <Route path="/daily" page={DailyPage} name="daily" />
         <Route path="/login" page={LoginPage} name="login" />
       </Set>
-      <Set wrap={AccountLayout}>
         <Route path="/account/profile" page={AccountProfilePage} name="accountProfile" />
       </Set>
       <Route notfound page={NotFoundPage} />

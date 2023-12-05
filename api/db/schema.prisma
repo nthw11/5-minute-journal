@@ -23,7 +23,7 @@ model User {
   id                Int                @id @default(autoincrement())
   name              String
   email             String             @unique
-  password          Password?
+  // password          Password?
   profile           Profile?
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
@@ -37,13 +37,13 @@ model User {
 }
 
 // password model includes a reference to a user model and a hashed password
-model Password {
-  id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [id], references: [id])
-  hashed    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
+// model Password {
+//   id        Int      @id @default(autoincrement())
+//   user      User     @relation(fields: [id], references: [id])
+//   hashed    String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
 
 // profile model includes a reference to a user model and a profile picture, first name, last name, and bio
 model Profile {
@@ -67,9 +67,10 @@ model DailyMorningPost {
   attitude        Int
   gratitudePosts  String
   dailyIntentions String
-  dailyGoals      String
+  goals           Goal[]
   dreams          String
   morningRoutine  String
+  tags            String
   notes           String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
@@ -87,6 +88,8 @@ model DailyEveningPost {
   attitude       Int
   positiveEvents String
   peopleMet      String
+  tags           String
+  goals          Goal[]
   events         Event[]
   notes          String?
   createdAt      DateTime @default(now())
@@ -102,6 +105,7 @@ model WeeklyPost {
   productivity Int
   goals        Goal[]
   events       Event[]
+  tags         String
   notes        String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -113,6 +117,7 @@ model QuarterlyPost {
   user      User     @relation(fields: [id], references: [id])
   date      DateTime
   time      String
+  tags      String
   goals     Goal[]
   events    Event[]
   notes     String?
@@ -126,6 +131,7 @@ model YearEndPost {
   user      User     @relation(fields: [id], references: [id])
   date      DateTime
   time      String
+  tags      String
   goals     Goal[]
   events    Event[]
   notes     String?
@@ -139,6 +145,7 @@ model NewYearPost {
   user      User     @relation(fields: [id], references: [id])
   date      DateTime
   time      String
+  tags      String
   goals     Goal[]
   events    Event[]
   notes     String?
@@ -148,24 +155,28 @@ model NewYearPost {
 
 // goal type includes a reference to a user model, date, priority, label, tags, and optional notes
 model Goal {
-  id              Int            @id @default(autoincrement())
-  user            User           @relation(fields: [id], references: [id])
-  date            DateTime
-  priority        Int
-  status          Int
-  label           String
-  tags            String
-  notes           String?
-  createdAt       DateTime       @default(now())
-  updatedAt       DateTime       @updatedAt
-  WeeklyPost      WeeklyPost?    @relation(fields: [weeklyPostId], references: [id])
-  weeklyPostId    Int?
-  QuarterlyPost   QuarterlyPost? @relation(fields: [quarterlyPostId], references: [id])
-  quarterlyPostId Int?
-  YearEndPost     YearEndPost?   @relation(fields: [yearEndPostId], references: [id])
-  yearEndPostId   Int?
-  NewYearPost     NewYearPost?   @relation(fields: [newYearPostId], references: [id])
-  newYearPostId   Int?
+  id                 Int               @id @default(autoincrement())
+  user               User              @relation(fields: [id], references: [id])
+  date               DateTime
+  priority           Int
+  status             Int
+  label              String
+  tags               String
+  notes              String?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  WeeklyPost         WeeklyPost?       @relation(fields: [weeklyPostId], references: [id])
+  weeklyPostId       Int?
+  QuarterlyPost      QuarterlyPost?    @relation(fields: [quarterlyPostId], references: [id])
+  quarterlyPostId    Int?
+  YearEndPost        YearEndPost?      @relation(fields: [yearEndPostId], references: [id])
+  yearEndPostId      Int?
+  NewYearPost        NewYearPost?      @relation(fields: [newYearPostId], references: [id])
+  newYearPostId      Int?
+  DailyMorningPost   DailyMorningPost? @relation(fields: [dailyMorningPostId], references: [id])
+  dailyMorningPostId Int?
+  DailyEveningPost   DailyEveningPost? @relation(fields: [dailyEveningPostId], references: [id])
+  dailyEveningPostId Int?
 }
 
 // event type includes date, time, title, description, tags, and optional notes

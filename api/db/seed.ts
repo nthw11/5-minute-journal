@@ -1,16 +1,17 @@
-import type { Prisma } from '@prisma/client'
-import { db } from 'api/src/lib/db'
-
-export const seed = async () => {
-  const user = await db.user.create({
+// Path: api/db/seed.ts
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient()
+async function main() {
+  const user = await prisma.user.create({
     data: {
       name: 'Alice',
       email: 'email@email.com',
-      },
-    })
+    },
+  })
+
   console.log(user)
 
-  const dailyMorningPost = await db.dailyMorningPost.create({
+  const dailyMorningPost = await prisma.dailyMorningPost.create({
     data: {
       date: new Date(),
       time: '7:00',
@@ -26,8 +27,7 @@ export const seed = async () => {
     },
   })
   console.log(dailyMorningPost)
-
-  const dailyEveningPost = await db.dailyEveningPost.create({
+  const dailyEveningPost = await prisma.dailyEveningPost.create({
     data: {
       date: new Date(),
       time: '22:00',
@@ -41,8 +41,6 @@ export const seed = async () => {
       notes: 'I am feeling good today',
       user: user.id,
     },
-
   })
   console.log(dailyEveningPost)
 }
-
