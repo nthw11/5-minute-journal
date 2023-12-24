@@ -15,16 +15,15 @@ interface MonthGridProps {
 const MonthGrid: React.FC<MonthGridProps> = ({ months, monthNames, year }) => {
 
   return (
-    <Box>
-      <Text fontWeight="bold">{year}</Text>
+    <Box p={8}>
+      <Text fontWeight="bold" fontSize={'xl'} textAlign={'center'}>{year}</Text>
     <Grid templateColumns="repeat(3, 1fr)" gap={6}>
       {monthNames.map((name, index) => {
         const monthIndex = index.toString().padStart(2, '0');
         const isBold = months.includes(monthIndex);
-        console.log('isBold', isBold, index, monthIndex, months)
 
         return (
-          <Text key={name} fontWeight={isBold ? 'bold' : 'light'}>
+          <Text key={name} fontWeight={isBold ? 'bold' : 'light'} >
             {name}
           </Text>
         );
@@ -34,8 +33,7 @@ const MonthGrid: React.FC<MonthGridProps> = ({ months, monthNames, year }) => {
   );
 };
 const YearGrid = (monthsToDisplay, year) => {
-  // console.log('monthsToDisplay', monthsToDisplay)
-
+  
   return <MonthGrid months={monthsToDisplay.monthsToDisplay} monthNames={months} year={monthsToDisplay.year} />;
 }
 

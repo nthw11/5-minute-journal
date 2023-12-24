@@ -14,8 +14,11 @@ import {
 } from "@chakra-ui/react"
 import { monthCalculator } from "src/util/monthCalculator"
 import { months, thisYear, thisMonth } from "src/lib/monthData"
-const MonthCalendarView = () => {
-
+const MonthCalendarView = ({month, year}) => {
+  let formattedMonth = month.toString().padStart(2, '0');
+  const thisMonth = parseInt(formattedMonth.slice(0, 2))
+  
+  const thisYear = month.slice(2, 6)
   return (
     <Box>
       <Flex direction={"column"}>
@@ -57,7 +60,7 @@ const MonthCalendarView = () => {
               <Tr>
                 <Th>Previous Month</Th>
                 <Th>Next Month</Th>
-                
+
               </Tr>
             </Tfoot>
           </Table>

@@ -5,12 +5,12 @@ export const monthCalculator = (month: number, year: number) => {
     const monthStr = (month + 1).toString()
     const yearStr = year.toString()
     const monthStartDay = new Date(`${yearStr}/${monthStr}/01`).getDay()
-    console.log('monthStartDay', monthStartDay)
+  
     return monthStartDay
   }
 
   const monthStart = monthStartDay(month, year)
-  // console.log(typeof monthStart)
+
   const monthLength = daysInMonth[month]
   const monthLayout = []
   for (let i = 0; i < monthStart; i++) {
@@ -70,6 +70,6 @@ export const monthsInCalendarDisplayArray = (
     }
   }
 
-  console.log('result', result);
+
   return result;
 };
