@@ -1,6 +1,7 @@
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
 import DailyCell from 'src/components/DailyCell'
+import YearCalendarView from 'src/components/YearCalendarView/YearCalendarView'
 
 const HomePage = () => {
   return (
@@ -14,7 +15,7 @@ const HomePage = () => {
       <p>
         My default route is named <code>home</code>, link to me with `
         <Link to={routes.home()}>Home</Link>`
-        <DailyCell />
+        {/* <YearCalendarView monthFrom={'012023'} monthTo={'122023'} /> */}
       </p>
     </>
   )

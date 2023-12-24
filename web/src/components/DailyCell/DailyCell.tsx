@@ -7,9 +7,10 @@ import { Box, Text } from '@chakra-ui/react';
 
 export const QUERY = gql`
   # query for DailyMorningPost and DailyEveningPost
-  query FindDailyQuery($date: DateTime!) {
+
+
+  query FindDailyQuery($date: DateTime! = "2021-09-01T00:00:00.000Z" ) {
     dailyMorningPost(date: $date) {
-      id
       date
       time
       hoursSlept
@@ -18,7 +19,6 @@ export const QUERY = gql`
       dailyIntentions
       goals {
         id
-        goal
       }
       dreams
       morningRoutine
@@ -40,11 +40,9 @@ export const QUERY = gql`
       tags
       goals{
         id
-        goal
       }
       events{
         id
-        event
       }
       notes
       createdAt
@@ -69,7 +67,7 @@ const CREATE_DAILY_EVENING_POST_MUTATION = gql`
 `
 
 const UPDATE_DAILY_MORNING_POST_MUTATION = gql`
-  mutation UpdateDailyMorningPostMutation($id: String!, $input: UpdateDailyMorningPostInput!) {
+  mutation UpdateDailyMorningPostMutation($id: Int!, $input: UpdateDailyMorningPostInput!) {
     updateDailyMorningPost(id: $id, input: $input) {
       id
     }
@@ -77,7 +75,7 @@ const UPDATE_DAILY_MORNING_POST_MUTATION = gql`
 `
 
 const UPDATE_DAILY_EVENING_POST_MUTATION = gql`
-  mutation UpdateDailyEveningPostMutation($id: String!, $input: UpdateDailyEveningPostInput!) {
+  mutation UpdateDailyEveningPostMutation($id: Int!, $input: UpdateDailyEveningPostInput!) {
     updateDailyEveningPost(id: $id, input: $input) {
       id
     }
@@ -85,7 +83,7 @@ const UPDATE_DAILY_EVENING_POST_MUTATION = gql`
 `
 
 const DELETE_DAILY_MORNING_POST_MUTATION = gql`
-  mutation DeleteDailyMorningPostMutation($id: String!) {
+  mutation DeleteDailyMorningPostMutation($id: Int!) {
     deleteDailyMorningPost(id: $id) {
       id
     }
@@ -93,7 +91,7 @@ const DELETE_DAILY_MORNING_POST_MUTATION = gql`
 `
 
 const DELETE_DAILY_EVENING_POST_MUTATION = gql`
-  mutation DeleteDailyEveningPostMutation($id: String!) {
+  mutation DeleteDailyEveningPostMutation($id: Int!) {
     deleteDailyEveningPost(id: $id) {
       id
     }
