@@ -1,3 +1,4 @@
+import { Box, Flex } from "@chakra-ui/react"
 import MonthCalendarView from "../MonthCalendarView/MonthCalendarView"
 
 const MonthsInCalendar = ({monthsToDisplay}) => {
@@ -5,13 +6,13 @@ const MonthsInCalendar = ({monthsToDisplay}) => {
   const yearsArray = Object.keys(monthsToDisplay)
 
   const monthsArray: number[][] = Object.values(monthsToDisplay) // Provide the correct type information here
-  
+
   return (
-    <div>
+    <Box>
       {
         yearsArray.map((year, i) => {
           return (
-            <div key={i}>
+            <Flex key={i} direction={'column'}>
               {/* <h2>{yearsArray[i]}</h2> */}
               {
                 monthsArray[i].map((month: number, j: number) => { // Provide the correct type information here
@@ -20,11 +21,11 @@ const MonthsInCalendar = ({monthsToDisplay}) => {
                   )
                 })
               }
-            </div>
+            </Flex>
           )
         })
       }
-    </div>
+    </Box>
   )
 }
 

@@ -4,6 +4,7 @@ import {
   Text,
   Grid,
 } from "@chakra-ui/react"
+import { Link } from "@redwoodjs/router";
 // import { m } from "framer-motion"
 import { months } from "src/lib/monthData"
 interface MonthGridProps {
@@ -23,9 +24,11 @@ const MonthGrid: React.FC<MonthGridProps> = ({ months, monthNames, year }) => {
         const isBold = months.includes(monthIndex);
 
         return (
+          <Link key={name} to={`/print#${monthIndex}${year}`}>
           <Text key={name} fontWeight={isBold ? 'bold' : 'light'} >
             {name}
           </Text>
+          </Link>
         );
       })}
     </Grid>
@@ -33,7 +36,7 @@ const MonthGrid: React.FC<MonthGridProps> = ({ months, monthNames, year }) => {
   );
 };
 const YearGrid = (monthsToDisplay, year) => {
-  
+
   return <MonthGrid months={monthsToDisplay.monthsToDisplay} monthNames={months} year={monthsToDisplay.year} />;
 }
 
