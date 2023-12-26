@@ -19,13 +19,19 @@ import NotesArea from "../NotesArea/NotesArea";
 import { Link } from "@redwoodjs/router";
 const MonthCalendarView = ({ month, year }) => {
   let formattedMonth = month.toString().padStart(2, '0');
+  let formattedDay = (day)=>{
+    return (parseInt(day) - 1).toString().padStart(2, '0')
+
+  }
   const thisMonth = parseInt(formattedMonth.slice(0, 2))
 
   const thisYear = month.slice(2, 6)
   const colWidth = '20mm'
   const fontSize = '9px'
   const monthYear = `${month}${year}`
-  console.log('thisYear', monthYear)
+
+  const previousMonth = ((parseInt(month) - 1) <= 0 ? (parseInt(month) - 1) : 11).toString().padStart(2, '0')
+  const nextMonth = ((parseInt(month) + 1) <= 11 ? (parseInt(month) + 1) : "00").toString().padStart(2, '0')
   return (
     <Box className="page-break-before" id={`${month}${year}`}
     >
@@ -55,7 +61,8 @@ const MonthCalendarView = ({ month, year }) => {
                     <Tr key={i}>
                       {week.map((day, j) => {
                         return (
-                          <Td fontSize={fontSize} key={j}>{day}</Td>
+                          <Td fontSize={fontSize} key={j}>
+                            <Link to={`/print#dayView${formattedDay(day)}${month}${year}`}>{day}</Link></Td>
                         )
                       })}
                     </Tr>
@@ -68,8 +75,9 @@ const MonthCalendarView = ({ month, year }) => {
           </Table>
         </TableContainer>
         <Flex justifyContent={'space-between'}>
-          <Button>Previous Month</Button>
-          <Button>Next Month</Button>
+          <Link to={`/print#${previousMonth}${year}`}><Button>Previous Month</Button></Link>
+          <Link to={`/print#${nextMonth}${year}`}><Button>Next Month</Button></Link>
+
         </Flex>
         <NotesArea />
       </Flex>

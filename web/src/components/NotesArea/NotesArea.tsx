@@ -11,7 +11,7 @@ const NotesArea = (props) => {
   }
   const lineHeight = '20px'
   const LinedPaperSVG = () => (
-    <Box borderBottom={'1px'} borderColor={'#333'} height={`${lineHeight}`} >
+    <Box borderBottom={'1px'} borderColor={'#555'} height={`${lineHeight}`} >
     </Box>
   )
   return (
