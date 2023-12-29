@@ -25,5 +25,5 @@ export const days = [
 export const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 export const daysInMonthLeapYear = [31 ,29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
 
-export const thisYear = new Date().getFullYear()
-export const thisMonth = new Date().getMonth()
+// export const thisYear = new Date().getFullYear()
+// export const thisMonth = new Date().getMonth()

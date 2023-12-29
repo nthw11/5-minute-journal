@@ -12,7 +12,7 @@ const YearCalendarView = (
 ) => {
 
   return (
-    <Flex direction={'column'} justify={'space-between'}>
+    <Flex direction={'column'} justify={'space-between'}  id={'printHome'} mt={'75px'}>
 
       {
         Object.entries(monthsToDisplay).map(([year, months]) => (

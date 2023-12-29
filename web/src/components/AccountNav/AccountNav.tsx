@@ -1,10 +1,13 @@
-import { ListItem, UnorderedList } from '@chakra-ui/react'
+import { ListItem, UnorderedList, Flex } from '@chakra-ui/react'
 import { Link, routes } from '@redwoodjs/router'
+import PrintHide from '../PrintHide/PrintHide'
 
 const AccountNav = () => {
   return (
     // nav bar that runs along the top of the page with a logo on the left and a profile icon on the right
-    <nav>
+    <Flex direction={'column'} >
+      <PrintHide>
+
 
       <UnorderedList>
 
@@ -18,8 +21,9 @@ const AccountNav = () => {
         </ListItem>
       </UnorderedList>
 
+      </PrintHide>
 
-    </nav>
+    </Flex>
   )
 }
 

@@ -1,6 +1,8 @@
 import { daysInMonth, daysInMonthLeapYear } from 'src/lib/monthData'
 
 export const monthCalculator = (month: number, year: number) => {
+  const yearStr = year.toString()
+
     const monthLength = isLeapYear(year)
     ? daysInMonthLeapYear[month]
     : daysInMonth[month]
@@ -8,13 +10,10 @@ export const monthCalculator = (month: number, year: number) => {
     const monthStr = (month + 1).toString()
     const yearStr = year.toString()
     const monthStartDay = new Date(`${yearStr}/${monthStr}/01`).getDay()
-
     return monthStartDay
   }
 
   const monthStart = monthStartDay(month, year)
-
-
 
   const monthLayout = []
   for (let i = 0; i < monthStart; i++) {
@@ -77,3 +76,9 @@ export const monthsInCalendarDisplayArray = (
 
   return result;
 };
+
+export const formatDateToMMYYYY = (date: Date): string => {
+  const month = (date.getMonth()).toString().padStart(2, '0');
+  const year = date.getFullYear().toString();
+  return month + year;
+}

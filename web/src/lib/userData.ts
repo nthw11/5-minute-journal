@@ -1,0 +1,9 @@
+export const activeRoutine = ['yoga', 'meditation','exercise']
+export const inactiveRoutine = ['running', 'reading', 'coding']
+export const activeMorningLists = ['Intentions', 'Gratitude', 'Goals', 'Dreams', 'Notes']
+export const inactiveMorningLists = ['Affirmations', 'Mood', 'Weather', 'Sleep', 'Exercise']
+export const activeEveningLists = ['Lessons Learned', 'Goals Met', 'Mistakes Made', 'Positive Events', 'Notes']
+export const inactiveEveningLists = ['Mood', 'Weather', 'Sleep', 'Exercise', 'Reading']
+export const activeConsumptionList = ['Alcohol', 'Weed', 'Caffeine']
+export const inactiveConsumptionList = ['Water', 'Tea', 'Fruit']
+export const journalName = "Daily Journal"

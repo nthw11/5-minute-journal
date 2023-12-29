@@ -1,23 +1,25 @@
 import { Flex, Box, Text } from '@chakra-ui/react'
 
 const NotesArea = (props) => {
-
+  const lineHeight = props.lineHeight || '20px'
+  const header = props.header || 'Notes'
+  const rows = props.rows || 20
+  const headerSize = props.headerSize || 'large'
   const linedPaperStyle = {
     '.lined-paper': {
       'background-image': 'repeating-linear-gradient(white, white 24px, black 25px);',
-      'height': '50px;',
+      'height': `${lineHeight}px;`,
       'width': '100%;',
     }
   }
-  const lineHeight = '20px'
   const LinedPaperSVG = () => (
     <Box borderBottom={'1px'} borderColor={'#555'} height={`${lineHeight}`} >
     </Box>
   )
   return (
-    <Flex height={'auto'} direction={'column'} justifyContent={'space-between'} overflow={'hidden'}>
-      <Text fontSize={'large'} textAlign={'left'}>Notes</Text>
-      {Array.from(Array(20).keys()).map((i) => {
+    <Flex height={'auto'} direction={'column'} overflow={'hidden'}>
+      <Text fontSize={headerSize} textAlign={'left'} marginBottom={'-10px'} textTransform={'uppercase'} >{header}</Text>
+      {Array.from(Array(rows).keys()).map((i) => {
         return (
           <Flex key={i} direction={'column'} justifyContent={'space-between'}  >
             <LinedPaperSVG />

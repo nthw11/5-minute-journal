@@ -22,9 +22,11 @@
   },
   "packageManager": "yarn@3.7.0",
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "framer-motion": "^10.16.12"
+    "framer-motion": "^10.16.12",
+    "react-datepicker": "^4.25.0"
   }
 }
