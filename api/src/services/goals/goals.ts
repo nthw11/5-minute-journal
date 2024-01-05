@@ -1,3 +1,5 @@
+import { z } from 'zod'
+
 import type {
   QueryResolvers,
   MutationResolvers,
@@ -5,6 +7,12 @@ import type {
 } from 'types/graphql'
 
 import { db } from 'src/lib/db'
+
+const goalSchema = z.object({
+  title: z.string().nonempty(),
+  description: z.string().optional(),
+  dueDate: z.date().optional()
+})
 
 export const goals: QueryResolvers['goals'] = () => {
   return db.goal.findMany()
@@ -16,7 +24,7 @@ export const goal: QueryResolvers['goal'] = ({ id }) => {
   })
 }
 
-export const createGoal: MutationResolvers['createGoal'] = ({ input }) => {
+export const createGoal = ({ input }) => {
   return db.goal.create({
     data: input,
   })

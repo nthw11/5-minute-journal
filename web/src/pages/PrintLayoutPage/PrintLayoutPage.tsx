@@ -68,6 +68,7 @@ const PrintLayoutPage = () => {
               From {monthFromName} {yearFrom} to {monthToName} {yearTo}{' '}
             </Text>
           </Flex>
+          
         </Flex>
         {/* calendar begins here */}
         <YearCalendarView monthsToDisplay={monthsToDisplay} />

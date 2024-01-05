@@ -6,8 +6,8 @@ import {
   createDailyMorningPost,
   updateDailyMorningPost,
   deleteDailyMorningPost,
-} from './dailyMorningPosts'
-import type { StandardScenario } from './dailyMorningPosts.scenarios'
+} from './dailyPosts'
+import type { StandardScenario } from './dailyPosts.scenarios'
 
 // Generated boilerplate tests do not account for all circumstances
 // and can fail without adjustments, e.g. Float.

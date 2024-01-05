@@ -4,6 +4,8 @@ import { days, months } from 'src/lib/monthData'
 import { activeRoutine, activeMorningLists, activeEveningLists, activeConsumptionList } from 'src/lib/userData'
 import square from 'src/Icons/square.svg'
 import NotesArea from '../NotesArea/NotesArea'
+import { getLunarPhase } from 'src/util/monthCalculator'
+import MoonPhase from '../LunarPhaseGrid/MoonPhase'
 
 
 const DayCalendarView = ({ day, month, year }) => {
@@ -18,7 +20,7 @@ const DayCalendarView = ({ day, month, year }) => {
     day: number;
   };
 
-  function getAdjacentDays(year: number, month: number, day: number): { yesterday: string, tomorrow: string } {
+  function getAdjacentDays(year: number, month: number, day: number): { yesterday: string, today: Date, tomorrow: string } {
     // Create a date object (months are 0-indexed in JavaScript)
     const date = new Date(year, month, day);
 
@@ -30,7 +32,7 @@ const DayCalendarView = ({ day, month, year }) => {
     const yesterday = new Date(date);
     yesterday.setDate(yesterday.getDate() - 1);
 
-
+    const today = new Date(date);
 
     const formatDate = (date: Date): string => {
       const d = date.getDate().toString().padStart(2, '0');
@@ -42,35 +44,44 @@ const DayCalendarView = ({ day, month, year }) => {
     return {
       yesterday: formatDate(yesterday),
       tomorrow: formatDate(tomorrow),
+      today,
+
     };
   }
-  // Calculate today
 
 
-  const { yesterday, tomorrow } = getAdjacentDays(year, month, day);
+
+  const { yesterday, today, tomorrow } = getAdjacentDays(year, month, day);
+
+
 
   return (
     <Box className='page-break-before' id={`dayView${day.toString().padStart(2, '0')}${month}${year}`} width={'8.5in'} height={'11in'} padding={'5px'} >
 
       {/* full page flex */}
-      <Flex direction={'column'} height={'1in'} mt={'20px'} >
+      <Flex direction={'column'} height={'1in'} mt={'40px'} >
         <Flex direction={'column'} maxWidth={'full'} >
           {/* nav section */}
           <Flex gap={'20px'}>
-            <Text fontWeight={'semibold'} fontSize={'20px'} textTransform={'uppercase'} >{dayName}</Text>
+            <Text color={'#555'} fontWeight={'medium'} fontSize={'20px'} textTransform={'uppercase'} >{dayName}</Text>
             <Text fontSize={'20px'} fontWeight={'bold'} > {dayNumber}</Text>
             <Link to={`/print#${month}${year}`}>
-              <Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'} fontSize={'20px'} > {monthName}</Button>
+              <Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'} fontSize={'20px'} color={'#555'} > {monthName}</Button>
             </Link>
             <Link to={`/print#printHome`}>
-              <Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'} fontSize={'20px'} > {year} </Button>
+              <Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'} fontSize={'20px'} color={'#555'}> {year} </Button>
             </Link>
             <Link to={`/print#dayView${yesterday}`}>
-              <Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'}>Yesterday</Button>
+              <Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'} color={'#555'}>Yesterday</Button>
             </Link>
             <Link to={`/print#dayView${tomorrow}`}>
-              <Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'}>Tomorrow</Button>
+              <Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'} color={'#555'}>Tomorrow</Button>
             </Link>
+            <VStack>
+              {/* <Text>{getLunarPhase(today)}</Text> */}
+            <Text fontSize={'xs'} fontWeight={'light'} textTransform={'uppercase'}>Lunar phase</Text>
+            <MoonPhase date={today}/>
+            </VStack>
           </Flex>
         </Flex>
         {/* day section */}
@@ -89,7 +100,7 @@ const DayCalendarView = ({ day, month, year }) => {
 
             {activeRoutine.map((task, i) => (
               <Flex key={i}><svg width="25" height="25" viewBox="0 -6 20 40">
-                <rect width="20" height="20" style={{ fill: 'none' }} stroke={'black'} />
+                <rect width="20" height="20" style={{ fill: 'none' }} stroke={'#555'} />
               </svg><Text fontSize={'sm'} textTransform={'uppercase'}>{task}</Text></Flex>
             ))}
 
@@ -111,7 +122,7 @@ const DayCalendarView = ({ day, month, year }) => {
         <Flex direction={'column'} gap={2} my={2}>
 
           {activeMorningLists.map((list, i) => (
-            <NotesArea header={list} rows={5} lineHeight={'12px'} headerSize={'12px'} />
+            <NotesArea header={list} rows={4} lineHeight={'16px'} headerSize={'12px'} />
           ))}
         </Flex>
         {/* evening section */}
@@ -164,7 +175,7 @@ const DayCalendarView = ({ day, month, year }) => {
           <Flex direction={'column'} gap={2}>
 
             {activeEveningLists.map((list, i) => (
-              <NotesArea header={list} rows={6} lineHeight={'12px'} headerSize={'12px'} key={i} />
+              <NotesArea header={list} rows={4} lineHeight={'16px'} headerSize={'12px'} key={i} />
             ))}
           </Flex>
         </Flex>

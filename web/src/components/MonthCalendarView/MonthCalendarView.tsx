@@ -14,7 +14,7 @@ import {
   Button,
 } from "@chakra-ui/react"
 import { monthCalculator } from "src/util/monthCalculator"
-import { months } from "src/lib/monthData"
+import { months, days } from "src/lib/monthData"
 import NotesArea from "../NotesArea/NotesArea";
 import { Link } from "@redwoodjs/router";
 const MonthCalendarView = ({ month, year }) => {
@@ -40,46 +40,42 @@ const MonthCalendarView = ({ month, year }) => {
           <Text fontSize={'x-large'} textAlign={'center'} py={4}>{months[thisMonth]} <Link to={`/print#printHome}`}><Text as={'span'}>{year}</Text></Link></Text>
 
         </Flex>
-        <TableContainer >
-          <Table variant='unstyled'>
-
-            <Thead>
-              <Tr>
-                <Th maxWidth={colWidth} fontSize={fontSize} >Sunday</Th>
-                <Th maxWidth={colWidth} fontSize={fontSize} >Monday</Th>
-                <Th maxWidth={colWidth} fontSize={fontSize} >Tuesday</Th>
-                <Th maxWidth={colWidth} fontSize={fontSize} >Wednesday</Th>
-                <Th maxWidth={colWidth} fontSize={fontSize} >Thursday</Th>
-                <Th maxWidth={colWidth} fontSize={fontSize} >Friday</Th>
-                <Th maxWidth={colWidth} fontSize={fontSize} >Saturday</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {
+        <Flex direction={'column'}>
+          {/* days row */}
+          <Flex direction={'row'}>
+          { days.map((day, i) => {
+            return (
+              <Box w={'1in'}>{day}</Box>
+            )
+          })}
+          </Flex>
+          {/* calendar row */}
+          {
                 monthCalculator(thisMonth, thisYear).map((week, i) => {
                   return (
-                    <Tr key={i}>
+                    <Flex key={i}>
                       {week.map((day, j) => {
                         return (
-                          <Td fontSize={fontSize} key={j} border={'1px'} borderColor={'#bbb'}>
-                            <Link to={`/print#dayView${formattedDay(day)}${month}${year}`}><Text>{day}</Text></Link></Td>
+                            <Link to={`/print#dayView${formattedDay(day)}${month}${year}`}>
+                          <Flex fontSize={fontSize} key={j} border={'1px'} borderColor={'#bbb'} w={'1in'} h={'.75in'} justifyContent={'center'} alignItems={'center'}>
+                              <Text fontSize={'lg'}>{day}</Text>
+                            </Flex>
+                            </Link>
                         )
                       })}
-                    </Tr>
+                    </Flex>
                   )
                 })
               }
 
-            </Tbody>
+          </Flex>
 
-          </Table>
-        </TableContainer>
         <Flex justifyContent={'space-between'} my={'20px'}>
-          <Link to={`/print#${previousMonth}${year}`}><Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'}>Previous Month</Button></Link>
-          <Link to={`/print#${nextMonth}${year}`}><Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'}>Next Month</Button></Link>
+          <Link to={`/print#${previousMonth}${year}`}><Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'} color={'#555'}>Previous Month</Button></Link>
+          <Link to={`/print#${nextMonth}${year}`}><Button variant={'outline'} border={'1px'} borderColor={'#555'} rounded={'none'} color={'#555'}>Next Month</Button></Link>
 
         </Flex>
-        <NotesArea />
+        <NotesArea rows={15} />
       </Flex>
     </Box>
   )

@@ -201,3 +201,4 @@ model Event {
   NewYearPost        NewYearPost?      @relation(fields: [newYearPostId], references: [id])
   newYearPostId      Int?
 }
+

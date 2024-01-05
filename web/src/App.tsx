@@ -10,7 +10,16 @@ const theme = extendTheme({
   fonts: {
     heading: 'Jost, sans-serif',
     body: 'Jost, sans-serif',
-  }
+  },
+  styles: {
+    global: {
+      // styles for the `body`
+      body: {
+        color: '#555', // sets the default text color
+        lineHeight: 'base', // optional, adjust line height to suit your needs
+      },
+    },
+  },
 })
 
 const App = () => (

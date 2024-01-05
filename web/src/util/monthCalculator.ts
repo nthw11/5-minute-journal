@@ -82,3 +82,37 @@ export const formatDateToMMYYYY = (date: Date): string => {
   const year = date.getFullYear().toString();
   return month + year;
 }
+
+export const getLunarPhase = (date: Date): string => {
+  // Date of a known full moon (e.g., January 1, 2000)
+  const knownFullMoon = new Date('2023-12-13T22:33:00Z');
+  const lunarCycleLength = 29.53; // Average length of a lunar cycle in days
+
+  // Calculate the difference in days
+  const diffInDays = (date.getTime() - knownFullMoon.getTime()) / (1000 * 60 * 60 * 24);
+  const lunarAge = diffInDays % lunarCycleLength;
+
+  // Determine the lunar phase
+  if (lunarAge < 1.84566) {
+      return 'New Moon';
+  } else if (lunarAge < 5.53699) {
+      return 'Waxing Crescent';
+  } else if (lunarAge < 9.22831) {
+      return 'First Quarter';
+  } else if (lunarAge < 12.91963) {
+      return 'Waxing Gibbous';
+  } else if (lunarAge < 16.61096) {
+      return 'Full Moon';
+  } else if (lunarAge < 20.30228) {
+      return 'Waning Gibbous';
+  } else if (lunarAge < 23.99361) {
+      return 'Last Quarter';
+  } else if (lunarAge < 27.68493) {
+      return 'Waning Crescent';
+  } else {
+      return 'New Moon';
+  }
+}
+
+
+
