@@ -7,12 +7,31 @@
 // 'src/pages/HomePage/HomePage.js'         -> HomePage
 // 'src/pages/Admin/BooksPage/BooksPage.js' -> AdminBooksPage
 
-import { Router, Route } from '@redwoodjs/router'
+import { Router, Route, Set } from '@redwoodjs/router'
+import JournalLayout from 'src/layouts/JournalLayout/JournalLayout'
+import AccountLayout from './layouts/AccountLayout/AccountLayout'
+import PrintViewLayout from './layouts/PrintViewLayout/PrintViewLayout'
+
+
 
 const Routes = () => {
   return (
     <Router>
+      <Set wrap={AccountLayout}>
+        <Route path="/" page={HomePage} name="home" />
+        <Set wrap={JournalLayout}>
+          <Route path="/dashboard" page={DashboardPage} name="dashboard" />
+          <Route path="/quarterly" page={QuarterlyPage} name="quarterly" />
+          <Route path="/weekly" page={WeeklyPage} name="weekly" />
+          <Route path="/daily" page={DailyPage} name="daily" />
+          <Route path="/login" page={LoginPage} name="login" />
+          <Set wrap={PrintViewLayout}>
+            <Route path="/print" page={PrintLayoutPage} name="print" />
+            <Route path="/account/profile" page={AccountProfilePage} name="accountProfile" />
+          </Set>
+        </Set>
       <Route notfound page={NotFoundPage} />
+      </Set>
     </Router>
   )
 }

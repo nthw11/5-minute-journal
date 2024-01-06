@@ -10,9 +10,195 @@ generator client {
 
 // Define your own datamodels here and run `yarn redwood prisma migrate dev`
 // to create migrations for them and apply to your dev DB.
-// TODO: Please remove the following example:
-model UserExample {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  body      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
+
+// user model includes name, email address, profile picture and a reference to a password model
+model User {
+  id                Int                @id @default(autoincrement())
+  name              String
+  email             String             @unique
+  // password          Password?
+  profile           Profile?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  dailyMorningPosts DailyMorningPost[]
+  dailyEveningPosts DailyEveningPost[]
+  weeklyPosts       WeeklyPost[]
+  yearEndPosts      YearEndPost[]
+  newYearPosts      NewYearPost[]
+  quarterlyPosts    QuarterlyPost[]
+  Goal              Goal[]
+}
+
+// password model includes a reference to a user model and a hashed password
+// model Password {
+//   id        Int      @id @default(autoincrement())
+//   user      User     @relation(fields: [id], references: [id])
+//   hashed    String
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+// }
+
+// profile model includes a reference to a user model and a profile picture, first name, last name, and bio
+model Profile {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [id], references: [id])
+  picture   String
+  firstName String
+  lastName  String
+  bio       String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// daily morning post type includes a reference to a user model, date, time, hours slept, attitude, gratitudePosts array, dailyIntions, dailyGoals array, dreams, morning routine checklist and optional notes
+model DailyMorningPost {
+  id              Int      @id @default(autoincrement())
+  user            User     @relation(fields: [id], references: [id])
+  date            DateTime
+  time            String
+  hoursSlept      Int
+  attitude        Int
+  gratitudePosts  String
+  dailyIntentions String
+  goals           Goal[]
+  dreams          String
+  morningRoutine  String
+  tags            String
+  notes           String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// daily evening post type includes a reference to a user model, date, time, productivity score, lessonsLearned array, mistakesMade array, attitude score, positiveEvents array, optional notes
+model DailyEveningPost {
+  id             Int      @id @default(autoincrement())
+  user           User     @relation(fields: [id], references: [id])
+  date           DateTime
+  time           String
+  productivity   Int
+  lessonsLearned String
+  mistakesMade   String
+  attitude       Int
+  positiveEvents String
+  peopleMet      String
+  tags           String
+  goals          Goal[]
+  events         Event[]
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// weekly post type includes a reference to a user model, date, time, productivity score, lessonsLearned array, mistakesMade array, attitude score, positiveEvents array, optional notes
+model WeeklyPost {
+  id           Int      @id @default(autoincrement())
+  user         User     @relation(fields: [id], references: [id])
+  date         DateTime
+  time         String
+  productivity Int
+  goals        Goal[]
+  events       Event[]
+  tags         String
+  notes        String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+// quarterly type includes a reference to a user model, date, time, goals array, events array, optional notes
+model QuarterlyPost {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [id], references: [id])
+  date      DateTime
+  time      String
+  tags      String
+  goals     Goal[]
+  events    Event[]
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// year end type includes a reference to a user model, date, time, goals array, events array, optional notes
+model YearEndPost {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [id], references: [id])
+  date      DateTime
+  time      String
+  tags      String
+  goals     Goal[]
+  events    Event[]
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// new year type includes a reference to a user model, date, time, goals array, events array, optional notes
+model NewYearPost {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [id], references: [id])
+  date      DateTime
+  time      String
+  tags      String
+  goals     Goal[]
+  events    Event[]
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// goal type includes a reference to a user model, date, priority, label, tags, and optional notes
+model Goal {
+  id                 Int               @id @default(autoincrement())
+  user               User              @relation(fields: [id], references: [id])
+  date               DateTime
+  priority           Int
+  status             Int
+  label              String
+  tags               String
+  notes              String?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  WeeklyPost         WeeklyPost?       @relation(fields: [weeklyPostId], references: [id])
+  weeklyPostId       Int?
+  QuarterlyPost      QuarterlyPost?    @relation(fields: [quarterlyPostId], references: [id])
+  quarterlyPostId    Int?
+  YearEndPost        YearEndPost?      @relation(fields: [yearEndPostId], references: [id])
+  yearEndPostId      Int?
+  NewYearPost        NewYearPost?      @relation(fields: [newYearPostId], references: [id])
+  newYearPostId      Int?
+  DailyMorningPost   DailyMorningPost? @relation(fields: [dailyMorningPostId], references: [id])
+  dailyMorningPostId Int?
+  DailyEveningPost   DailyEveningPost? @relation(fields: [dailyEveningPostId], references: [id])
+  dailyEveningPostId Int?
+}
+
+// event type includes date, time, title, description, tags, and optional notes
+model Event {
+  id                 Int               @id @default(autoincrement())
+  date               DateTime
+  time               String
+  title              String
+  description        String
+  tags               String
+  notes              String?
+  createdAt          DateTime          @default(now())
+  updatedAt          DateTime          @updatedAt
+  DailyEveningPost   DailyEveningPost? @relation(fields: [dailyEveningPostId], references: [id])
+  dailyEveningPostId Int?
+  WeeklyPost         WeeklyPost?       @relation(fields: [weeklyPostId], references: [id])
+  weeklyPostId       Int?
+  QuarterlyPost      QuarterlyPost?    @relation(fields: [quarterlyPostId], references: [id])
+  quarterlyPostId    Int?
+  YearEndPost        YearEndPost?      @relation(fields: [yearEndPostId], references: [id])
+  yearEndPostId      Int?
+  NewYearPost        NewYearPost?      @relation(fields: [newYearPostId], references: [id])
+  newYearPostId      Int?
+}
+
