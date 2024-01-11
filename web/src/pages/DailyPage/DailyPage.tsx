@@ -1,21 +1,26 @@
 import { Link, routes } from '@redwoodjs/router'
 import { MetaTags } from '@redwoodjs/web'
+import {DailyMorningPostEntryForm, DailyEveningPostEntryForm} from 'src/components/DailyPostEntryForm/DailyPostEntryForm'
+import {   Tabs,
+  TabList,
+  Tab,
+  TabPanel,
+  TabPanels} from "@chakra-ui/react"
 
+  
 const DailyPage = () => {
+
   return (
     <>
       <MetaTags title="Daily" description="Daily page" />
 
       <h1>DailyPage</h1>
-      <p>
-        Find me in <code>./web/src/pages/DailyPage/DailyPage.tsx</code>
-      </p>
-      <p>
-        My default route is named <code>daily</code>, link to me with `
-        <Link to={routes.daily()}>Daily</Link>`
-      </p>
+
+
+
     </>
   )
 }
+
 
 export default DailyPage

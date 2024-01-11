@@ -1,4 +1,4 @@
-export const activeRoutine = ['yoga', 'meditation','exercise']
+export const activeRoutine = ['yoga', 'meditation','exercise', 'none']
 export const inactiveRoutine = ['running', 'reading', 'coding']
 export const activeMorningLists = ['Intentions', 'Gratitude', 'Goals', 'Dreams', 'Notes']
 export const inactiveMorningLists = ['Affirmations', 'Mood', 'Weather', 'Sleep', 'Exercise']

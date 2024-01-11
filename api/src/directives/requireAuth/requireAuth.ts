@@ -23,3 +23,4 @@ const validate: RequireAuthValidate = ({ directiveArgs }) => {
 const requireAuth = createValidatorDirective(schema, validate)
 
 export default requireAuth
+

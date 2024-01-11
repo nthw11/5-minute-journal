@@ -6,9 +6,11 @@ import { MetaTags } from '@redwoodjs/web'
 const DashboardPage = () => {
   return (
     <>
+
       <MetaTags title="Dashboard" description="Dashboard page" />
 
       <h1>DashboardPage</h1>
+      
 
     </>
   )
